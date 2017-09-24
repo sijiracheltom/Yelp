@@ -17,10 +17,6 @@ let yelpConsumerSecret = "33QCvh5bIF5jIHR5klQr7RtBDhQ"
 let yelpToken = "uRcRswHFYa1VkDrGV6LAW2F8clGh5JHV"
 let yelpTokenSecret = "mqtKIxMIR4iBtBPZCmCLEb-Dz3Y"
 
-enum YelpSortMode: Int {
-    case bestMatched = 0, distance, highestRated
-}
-
 class YelpClient: BDBOAuth1RequestOperationManager {
     var accessToken: String!
     var accessSecret: String!

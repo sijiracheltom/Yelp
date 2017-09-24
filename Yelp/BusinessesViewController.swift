@@ -91,7 +91,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: - Filters VC delegare
     func filtersViewController(filtersViewController: FiltersViewController, didSearchForFilters filters: [String : AnyObject]) {
-        Business.searchWithTerm(term: "", sort: nil, categories: filters["categories"] as? [String], deals: nil)
+        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: filters["categories"] as? [String], deals: nil)
         { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()

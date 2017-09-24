@@ -19,6 +19,23 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     var switchValueArray = [Int : Bool]()
     weak var delegate : FiltersViewControllerDelegate?
     
+    enum TableSection : Int {
+        case deals = 0
+        case distance
+        case sortBy
+        case category
+        case totalCount
+    }
+    
+    enum TableSectionDistance : Int {
+        case auto = 0
+        case pointThreeMiles
+        case oneMile
+        case fiveMiles
+        case twentyMiles
+        case totalCount
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +47,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         categories = yelpCategories()
         
         tableView.delegate = self
-        tableView.dataSource = self        
+        tableView.dataSource = self
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -59,12 +76,42 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK : - Tableview methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.categories.count
+        var numRows = 0
+        
+        if let tableSection = TableSection(rawValue: section) {
+            switch tableSection {
+            case .deals:
+                numRows = 1
+            case .category:
+                numRows = self.categories.count
+            case .distance:
+                numRows = TableSectionDistance.totalCount.rawValue
+            case .sortBy:
+                numRows = YelpSortMode.totalCount.rawValue
+            default:
+                numRows = 0
+            }
+        }
+        
+        return numRows
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return TableSection.totalCount.rawValue
+    }
+    
+    func switchText(indexPath : IndexPath) -> String {
+        let row = indexPath.row
+        let section = TableSection(rawValue: indexPath.section)
+
+        return ""
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
         cell.switchLabel.text = categories[indexPath.row]["name"]
+            //switchText(indexPath: indexPath)
         cell.delegate = self
         cell.onSwitch.setOn(switchValueArray[indexPath.row] ?? false, animated: false)
         
