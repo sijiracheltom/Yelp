@@ -31,19 +31,12 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barTintColor = UIColor(red: 215/255.0, green: 0.0, blue: 0.0, alpha: 1.0)
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in            
-            self.businesses = businesses
-            self.tableView.reloadData()
-            
-            if let businesses = businesses {
-                for business in businesses {
-                    print(business.name!)
-                    print(business.address!)
-                }
-            }
-            
-            }
-        )
+        Business.searchWithTerm(term: "Thai",
+                                completion:
+            { (businesses: [Business]?, error: Error?) -> Void in
+                self.businesses = businesses
+                self.tableView.reloadData()
+        })
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -91,7 +84,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: - Filters VC delegare
     func filtersViewController(filtersViewController: FiltersViewController, didSearchForFilters filters: [String : AnyObject]) {
-        Business.searchWithTerm(term: "Restaurants", sort: nil, categories: filters["categories"] as? [String], deals: nil)
+        let restaurantCategories = filters["categories"] ?? nil
+        let deals = filters["deals"] ?? nil
+        let sortMode = filters["sortMode"] ?? nil
+        
+        Business.searchWithTerm(term: "Restaurants", sort: sortMode as? YelpSortMode, categories: restaurantCategories as? [String], deals: deals as? Bool)
         { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()

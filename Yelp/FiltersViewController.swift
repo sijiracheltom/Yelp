@@ -16,7 +16,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
     var categories: [[String : String]]!
-    var switchValueArray = [Int : Bool]()
+    var selectionArray = [Int : [Int : Bool]]()
     weak var delegate : FiltersViewControllerDelegate?
     
     enum TableSection : Int {
@@ -25,16 +25,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         case sortBy
         case category
         case totalCount
-    }
-    
-    enum TableSectionDistance : Int {
-        case auto = 0
-        case pointThreeMiles
-        case oneMile
-        case fiveMiles
-        case twentyMiles
-        case totalCount
-    }
+    }        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +37,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         categories = yelpCategories()
         
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -54,21 +46,85 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func searchButtonTapped(_ sender: Any) {
+    func selectedCategories(categoryList : [Int : Bool]) -> [String]? {
         var selectedCategories = [String]()
         
-        for (row, switchSelectedState) in switchValueArray {
+        for (row, switchSelectedState) in categoryList {
             if switchSelectedState {
                 selectedCategories.append(categories[row]["code"]!)
             }
         }
         
-        var filters = [String : AnyObject]()
-        
         if selectedCategories.count > 0 {
-            filters["categories"] = selectedCategories as AnyObject
-            self.delegate?.filtersViewController?(filtersViewController: self, didSearchForFilters: filters)
+            return selectedCategories
+        } else {
+            return nil
         }
+    }
+    
+    func isDealSelected(selectionList : [Int : Bool]) -> Bool? {
+        for (_, isSelected) in selectionList {
+            if isSelected {
+                return isSelected
+            }
+        }
+        
+        return nil
+    }
+    
+    func sortByModeSelected(selectionList : [Int : Bool]) -> YelpSortMode? {
+        for (row, isSelected) in selectionList {
+            if isSelected {
+                let selectedSortMode = YelpSortMode(rawValue: row)
+                return selectedSortMode
+            }
+        }
+        
+        return nil
+    }
+    
+    func selectedDistance(selectionList : [Int : Bool]) -> YelpDistanceMode? {
+        for (row, isSelected) in selectionList {
+            if isSelected {
+                let selectedDistanceMode = YelpDistanceMode(rawValue: row)
+                return selectedDistanceMode
+            }
+        }
+        
+        return nil
+    }
+    
+    @IBAction func searchButtonTapped(_ sender: Any) {
+        var selectedFilter = [String : AnyObject]()
+        
+        for (section, filters) in selectionArray {
+            
+            // Get value of row for each section type
+            if let tableSection = TableSection(rawValue : section) {
+                switch tableSection {
+                case .category:
+                    if let categoryList = selectedCategories(categoryList: filters) {
+                        selectedFilter["categories"] = categoryList as AnyObject
+                    }
+                case .deals:
+                    if let isDealFilterOn = isDealSelected(selectionList: filters) {
+                        selectedFilter["deals"] = isDealFilterOn as AnyObject
+                    }
+                case .sortBy:
+                    if let selectedSortMode = sortByModeSelected(selectionList: filters) {
+                        selectedFilter["sortMode"] = selectedSortMode as AnyObject
+                    }
+                case .distance:
+                    if let selectedDistanceMode = selectedDistance(selectionList: filters) {
+                        selectedFilter["radius"] = selectedDistanceMode as AnyObject
+                    }
+                case .totalCount:
+                    break
+                }
+            }
+        }
+        
+        self.delegate?.filtersViewController?(filtersViewController: self, didSearchForFilters: selectedFilter)
         
         dismiss(animated: true, completion: nil)
     }
@@ -76,8 +132,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK : - Tableview methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numRows = 0
         
+        var numRows : Int!
         if let tableSection = TableSection(rawValue: section) {
             switch tableSection {
             case .deals:
@@ -85,10 +141,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             case .category:
                 numRows = self.categories.count
             case .distance:
-                numRows = TableSectionDistance.totalCount.rawValue
+                numRows = YelpDistanceMode.totalCount.rawValue
             case .sortBy:
                 numRows = YelpSortMode.totalCount.rawValue
-            default:
+            case .totalCount:
                 numRows = 0
             }
         }
@@ -101,19 +157,32 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func switchText(indexPath : IndexPath) -> String {
-        let row = indexPath.row
-        let section = TableSection(rawValue: indexPath.section)
-
-        return ""
+        
+        var text : String!
+        if let section = TableSection(rawValue: indexPath.section) {
+            switch section {
+            case .deals:
+                text = "Offering a Deal"
+            case .category:
+                text = categories[indexPath.row]["name"]!
+            case .sortBy:
+                text = sortModeText(sortMode: YelpSortMode(rawValue: indexPath.row)!)
+            case .distance:
+                text = distanceModeText(distanceMode: YelpDistanceMode(rawValue: indexPath.row)!)
+            case .totalCount:
+                text = ""
+            }
+        }
+        
+        return text
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
-        cell.switchLabel.text = categories[indexPath.row]["name"]
-            //switchText(indexPath: indexPath)
+        cell.switchLabel.text = switchText(indexPath: indexPath)
         cell.delegate = self
-        cell.onSwitch.setOn(switchValueArray[indexPath.row] ?? false, animated: false)
+        cell.onSwitch.setOn(selectionArray[indexPath.section]?[indexPath.row] ?? false, animated: false)
         
         return cell
     }
@@ -121,8 +190,10 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK : - SwitchCellDelegate methods
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
-        let row = tableView.indexPath(for: switchCell)!.row
-        self.switchValueArray[row] = value
+        let indexpath = tableView.indexPath(for: switchCell)!
+        var selectionArraySection = selectionArray[indexpath.section] ?? [:]
+        selectionArraySection[indexpath.row] = value
+        selectionArray[indexpath.section] = selectionArraySection
     }
     
     // MARK : - Predefined categories, convenience method

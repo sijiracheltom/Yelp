@@ -40,8 +40,8 @@
                                                         <constraint firstAttribute="height" constant="66" id="wDR-Ey-odK"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thai, Seafood, Salad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qc-KB-yyG">
-                                                    <rect key="frame" x="82" y="70" width="125" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thai, Seafood, Salad" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qc-KB-yyG">
+                                                    <rect key="frame" x="82" y="70" width="124.5" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -95,6 +95,7 @@
                                                 <constraint firstItem="62H-jg-aAs" firstAttribute="top" secondItem="15Y-cF-6RE" secondAttribute="bottom" constant="4" id="Lbs-S5-4cF"/>
                                                 <constraint firstItem="C2j-VP-O7N" firstAttribute="top" secondItem="kOS-Tx-Yvf" secondAttribute="bottom" constant="4" id="O4t-AP-xXj"/>
                                                 <constraint firstItem="kOS-Tx-Yvf" firstAttribute="leading" secondItem="dVu-UP-X1Q" secondAttribute="trailing" constant="8" id="O7y-ln-3dc"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8qc-KB-yyG" secondAttribute="trailing" constant="8" id="Wuu-k8-inN"/>
                                                 <constraint firstItem="kOS-Tx-Yvf" firstAttribute="top" secondItem="7Dy-ae-okb" secondAttribute="bottom" constant="4" id="ZGD-Kh-meC"/>
                                                 <constraint firstItem="8qc-KB-yyG" firstAttribute="leading" secondItem="C2j-VP-O7N" secondAttribute="leading" id="cbh-nJ-jii"/>
                                                 <constraint firstItem="dVu-UP-X1Q" firstAttribute="top" secondItem="7Dy-ae-okb" secondAttribute="bottom" constant="4" id="dqQ-Ey-U4p"/>
@@ -158,7 +159,7 @@
                                         <rect key="frame" x="0.0" y="56" width="375" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uqU-sb-7A5" id="QTa-SE-gHl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="47.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="47"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSb-79-h87">
