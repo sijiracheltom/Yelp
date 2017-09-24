@@ -163,28 +163,39 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSb-79-h87">
-                                                    <rect key="frame" x="15" y="14" width="43" height="21"/>
+                                                    <rect key="frame" x="15" y="13" width="43" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="27y-oo-8zT">
-                                                    <rect key="frame" x="311" y="8.5" width="51" height="31"/>
+                                                    <rect key="frame" x="311" y="8" width="51" height="31"/>
                                                 </switch>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expandArrow" translatesAutoresizingMaskIntoConstraints="NO" id="FQE-zN-fud">
+                                                    <rect key="frame" x="325" y="6.5" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="7th-D1-NTV"/>
+                                                        <constraint firstAttribute="height" constant="35" id="cVJ-71-QCz"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="FSb-79-h87" firstAttribute="top" relation="greaterThanOrEqual" secondItem="QTa-SE-gHl" secondAttribute="top" constant="8" id="2g0-MD-WBK"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="27y-oo-8zT" secondAttribute="bottom" constant="8" id="BB9-Xs-GPQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="FQE-zN-fud" secondAttribute="trailing" constant="15" id="BNx-IT-8sd"/>
+                                                <constraint firstItem="FQE-zN-fud" firstAttribute="centerY" secondItem="QTa-SE-gHl" secondAttribute="centerY" id="CqU-oG-9tR"/>
                                                 <constraint firstItem="FSb-79-h87" firstAttribute="leading" secondItem="QTa-SE-gHl" secondAttribute="leading" constant="15" id="EMG-gh-1YW"/>
                                                 <constraint firstItem="FSb-79-h87" firstAttribute="centerY" secondItem="QTa-SE-gHl" secondAttribute="centerY" id="JvH-76-Pmx"/>
                                                 <constraint firstItem="27y-oo-8zT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="QTa-SE-gHl" secondAttribute="top" constant="8" id="Sm8-vC-sLH"/>
                                                 <constraint firstItem="27y-oo-8zT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FSb-79-h87" secondAttribute="trailing" constant="8" id="f9b-tV-Wld"/>
                                                 <constraint firstItem="27y-oo-8zT" firstAttribute="centerY" secondItem="QTa-SE-gHl" secondAttribute="centerY" id="ocH-Xm-RTg"/>
+                                                <constraint firstItem="FQE-zN-fud" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FSb-79-h87" secondAttribute="trailing" constant="8" id="rL6-Tn-b0i"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FSb-79-h87" secondAttribute="bottom" constant="8" id="trQ-ZG-gnr"/>
                                                 <constraint firstAttribute="trailing" secondItem="27y-oo-8zT" secondAttribute="trailing" constant="15" id="vKE-Qx-HOc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="arrowImageView" destination="FQE-zN-fud" id="EKI-vz-rZX"/>
                                             <outlet property="onSwitch" destination="27y-oo-8zT" id="0LK-MH-7bF"/>
                                             <outlet property="switchLabel" destination="FSb-79-h87" id="XmF-oR-EDe"/>
                                         </connections>
@@ -253,4 +264,7 @@
             <point key="canvasLocation" x="3536.8000000000002" y="357.57121439280365"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="expandArrow" width="16" height="16"/>
+    </resources>
 </document>

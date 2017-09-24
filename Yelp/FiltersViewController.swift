@@ -18,6 +18,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     var categories: [[String : String]]!
     var selectionArray = [Int : [Int : Bool]]()
     weak var delegate : FiltersViewControllerDelegate?
+    var isDistanceSectionExpanded : Bool = false
+    var isSortBySectionExpanded : Bool = false
     
     enum TableSection : Int {
         case deals = 0
@@ -143,9 +145,17 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             case .category:
                 numRows = self.categories.count
             case .distance:
-                numRows = YelpDistanceMode.totalCount.rawValue
+                if isDistanceSectionExpanded {
+                    numRows = YelpDistanceMode.totalCount.rawValue
+                } else {
+                    numRows = 1
+                }
             case .sortBy:
-                numRows = YelpSortMode.totalCount.rawValue
+                if isSortBySectionExpanded {
+                    numRows = YelpSortMode.totalCount.rawValue
+                } else {
+                    numRows = 1
+                }
             case .totalCount:
                 numRows = 0
             }
@@ -185,6 +195,20 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.switchLabel.text = switchText(indexPath: indexPath)
         cell.delegate = self
         cell.onSwitch.setOn(selectionArray[indexPath.section]?[indexPath.row] ?? false, animated: false)
+        cell.arrowImageView.isHidden = true
+        cell.onSwitch.isHidden = false
+        
+        if indexPath.section == TableSection.distance.rawValue {
+            if isDistanceSectionExpanded == false {
+                cell.arrowImageView.isHidden = false
+                cell.onSwitch.isHidden = true
+            }
+        } else if indexPath.section == TableSection.sortBy.rawValue {
+            if isSortBySectionExpanded == false {
+                cell.arrowImageView.isHidden = false
+                cell.onSwitch.isHidden = true
+            }
+        }
         
         return cell
     }
@@ -232,6 +256,14 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         selectionArraySection[selectedRow] = true
         selectionArray[section] = selectionArraySection
+        
+        // Expand distance section if required
+        if section == TableSection.distance.rawValue {
+            isDistanceSectionExpanded = !isDistanceSectionExpanded
+        } else if section == TableSection.sortBy.rawValue {
+            isSortBySectionExpanded = !isSortBySectionExpanded
+        }
+        
         tableView.reloadData()
     }
     

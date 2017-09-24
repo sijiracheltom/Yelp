@@ -16,6 +16,7 @@ class SwitchCell: UITableViewCell {
 
     @IBOutlet weak var switchLabel: UILabel!
     @IBOutlet weak var onSwitch: UISwitch!
+    @IBOutlet weak var arrowImageView: UIImageView!
     
     weak var delegate: SwitchCellDelegate?
     
