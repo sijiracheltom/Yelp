@@ -202,11 +202,25 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             if isDistanceSectionExpanded == false {
                 cell.arrowImageView.isHidden = false
                 cell.onSwitch.isHidden = true
+                
+                // Set selected distance name if appropriate
+                if let selectedSection = selectionArray[indexPath.section] {
+                    if let selectedDistance = selectedDistance(selectionList: selectedSection) {
+                        cell.switchLabel.text = distanceModeText(distanceMode: selectedDistance)
+                    }
+                }
             }
         } else if indexPath.section == TableSection.sortBy.rawValue {
             if isSortBySectionExpanded == false {
                 cell.arrowImageView.isHidden = false
                 cell.onSwitch.isHidden = true
+                
+                // Set selected sortBy name if appropriate
+                if let selectedSection = selectionArray[indexPath.section] {
+                    if let selectedSortMode = sortByModeSelected(selectionList: selectedSection) {
+                        cell.switchLabel.text = sortModeText(sortMode: selectedSortMode)
+                    }
+                }
             }
         }
         
