@@ -32,6 +32,23 @@ enum YelpDistanceMode : Int {
     case totalCount
 }
 
+func distanceInMeters(distanceMode : YelpDistanceMode) -> Int {
+    switch distanceMode {
+    case .auto:
+        return 40000
+    case .pointThreeMiles:
+        return 482
+    case .oneMile:
+        return 1609
+    case .fiveMiles:
+        return 8046
+    case .twentyMiles:
+        return 32186
+    case .totalCount:
+        return 0
+    }
+}
+
 func distanceModeText(distanceMode : YelpDistanceMode) -> String {
     switch distanceMode {
     case .auto:
