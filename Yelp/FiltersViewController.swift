@@ -40,6 +40,8 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.backgroundColor = UIColor.white
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -185,6 +187,28 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.onSwitch.setOn(selectionArray[indexPath.section]?[indexPath.row] ?? false, animated: false)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        var title : String?
+        
+        if let tableSection = TableSection(rawValue: section) {
+            switch tableSection {
+            case .deals:
+                title = ""
+            case .category:
+                title = "Category"
+            case .distance:
+                title = "Distance"
+            case .sortBy:
+                title = "Sort By"
+            case .totalCount:
+                title = ""
+            }
+        }
+        
+        return title
     }
     
     // MARK : - SwitchCellDelegate methods

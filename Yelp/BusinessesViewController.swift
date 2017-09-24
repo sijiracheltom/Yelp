@@ -13,6 +13,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
+    var searchedBusinesses : [Business]!
     var searchBar: UISearchBar!    
     
     override func viewDidLoad() {
@@ -31,10 +32,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barTintColor = UIColor(red: 215/255.0, green: 0.0, blue: 0.0, alpha: 1.0)
         
-        Business.searchWithTerm(term: "Thai",
+        Business.searchWithTerm(term: "Restaurants",
                                 completion:
             { (businesses: [Business]?, error: Error?) -> Void in
                 self.businesses = businesses
+                self.searchedBusinesses = businesses
                 self.tableView.reloadData()
         })
         
@@ -50,6 +52,28 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
          */
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchedBusinesses = searchText.isEmpty ? businesses : businesses.filter({ (business : Business) -> Bool in
+            let businessName = business.name
+            return businessName?.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        })
+        tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.resignFirstResponder()
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
     override func viewWillLayoutSubviews() {
         searchBar.sizeToFit()
     }
@@ -57,8 +81,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - TableView methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if businesses != nil {
-            return businesses.count
+        if searchedBusinesses != nil {
+            return searchedBusinesses.count
         } else {
             return 0
         }
@@ -67,7 +91,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
         
-        cell.business = businesses[indexPath.row]
+        cell.business = searchedBusinesses[indexPath.row]
         
         return cell
     }
@@ -77,6 +101,12 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - Navigation controller setup
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        searchBar.showsCancelButton = false
+        searchBar.text = nil
+        searchBar.resignFirstResponder()
+        searchedBusinesses = businesses
+        tableView.reloadData()
+        
         let navigationController = segue.destination as! UINavigationController
         let filtersVC = navigationController.topViewController as! FiltersViewController
         filtersVC.delegate = self
@@ -92,6 +122,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         Business.searchWithTerm(term: "Restaurants", sort: sortMode as? YelpSortMode, categories: restaurantCategories as? [String], deals: deals as? Bool, radius: distanceMode as? YelpDistanceMode)
         { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
+            self.searchedBusinesses = businesses
             self.tableView.reloadData()
         }
     }
