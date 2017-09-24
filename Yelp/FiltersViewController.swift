@@ -196,7 +196,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let tableSection = TableSection(rawValue: section) {
             switch tableSection {
             case .deals:
-                title = ""
+                title = "Deals"
             case .category:
                 title = "Category"
             case .distance:
@@ -211,13 +211,39 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         return title
     }
     
+    func resetRadioCells(selectedRow : Int, forSection section : Int) -> Void {
+        var selectionArraySection = selectionArray[section] ?? [:]
+        
+        // Disable Radio Cells
+        if let tableSection = TableSection(rawValue : section) {
+            switch tableSection {
+                
+            case .sortBy, .distance:
+                for (row, isSelected) in selectionArraySection {
+                    if isSelected {
+                        selectionArraySection[row] = false
+                    }
+                }
+                
+            default:
+                break
+            }
+        }
+        
+        selectionArraySection[selectedRow] = true
+        selectionArray[section] = selectionArraySection
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        resetRadioCells(selectedRow: indexPath.row, forSection: indexPath.section)
+    }
+    
     // MARK : - SwitchCellDelegate methods
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexpath = tableView.indexPath(for: switchCell)!
-        var selectionArraySection = selectionArray[indexpath.section] ?? [:]
-        selectionArraySection[indexpath.row] = value
-        selectionArray[indexpath.section] = selectionArraySection
+        resetRadioCells(selectedRow: indexpath.row, forSection: indexpath.section)
     }
     
     // MARK : - Predefined categories, convenience method
