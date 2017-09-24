@@ -23,7 +23,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="125" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2HG-zK-hbU">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusinessCell" rowHeight="125" id="6o8-lZ-MR7" customClass="BusinessCell" customModule="Yelp" customModuleProvider="target">
@@ -122,7 +122,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="yKe-td-2Fw"/>
+                    <navigationItem key="navigationItem" title="Yelp" id="yKe-td-2Fw">
+                        <barButtonItem key="leftBarButtonItem" title="Filter" id="99q-pO-L4h">
+                            <connections>
+                                <segue destination="iBH-gw-i0r" kind="presentation" id="eda-G7-fER"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="2HG-zK-hbU" id="yR8-sw-BSy"/>
                     </connections>
@@ -130,6 +136,73 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2727.1999999999998" y="357.57121439280365"/>
+        </scene>
+        <!--Filters-->
+        <scene sceneID="iOy-L6-jEb">
+            <objects>
+                <viewController id="79f-UA-OUz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3ga-hb-aGm"/>
+                        <viewControllerLayoutGuide type="bottom" id="YOE-Ic-cI2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Bb-XW-2oQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="155" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GaD-9w-92t">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="155" id="uqU-sb-7A5" customClass="SwitchCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="155"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uqU-sb-7A5" id="QTa-SE-gHl">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSb-79-h87">
+                                                    <rect key="frame" x="15" y="67.5" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="27y-oo-8zT">
+                                                    <rect key="frame" x="311" y="62" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="27y-oo-8zT" firstAttribute="centerY" secondItem="FSb-79-h87" secondAttribute="centerY" id="015-zv-eWp"/>
+                                                <constraint firstItem="FSb-79-h87" firstAttribute="leading" secondItem="QTa-SE-gHl" secondAttribute="leading" constant="15" id="EMG-gh-1YW"/>
+                                                <constraint firstItem="FSb-79-h87" firstAttribute="centerY" secondItem="QTa-SE-gHl" secondAttribute="centerY" id="JvH-76-Pmx"/>
+                                                <constraint firstItem="27y-oo-8zT" firstAttribute="centerY" secondItem="QTa-SE-gHl" secondAttribute="centerY" id="ocH-Xm-RTg"/>
+                                                <constraint firstAttribute="trailing" secondItem="27y-oo-8zT" secondAttribute="trailing" constant="15" id="vKE-Qx-HOc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="onSwitch" destination="27y-oo-8zT" id="0LK-MH-7bF"/>
+                                            <outlet property="switchLabel" destination="FSb-79-h87" id="XmF-oR-EDe"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Filters" id="zaJ-ZV-6yb">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="9Bz-50-QgX">
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="o4S-g2-nXR">
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3h0-sk-MNr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4476" y="357.57121439280365"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mge-gP-BqR">
@@ -148,6 +221,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TdX-xU-pf7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1788" y="357.57121439280365"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="w8k-VT-9zD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iBH-gw-i0r" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lOO-7H-c7E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="79f-UA-OUz" kind="relationship" relationship="rootViewController" id="UkJ-0V-7V0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zSV-dP-62c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3536.8000000000002" y="357.57121439280365"/>
         </scene>
     </scenes>
 </document>

@@ -13,9 +13,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
-    var searchBar: UISearchBar!
-    var filterButton : UIButton!
-    
+    var searchBar: UISearchBar!    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +27,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: UIBarButtonItemStyle.plain, target: self, action: #selector(BusinessesViewController.filterButtonTapped))
         navigationController?.navigationBar.barStyle = UIBarStyle.blackOpaque
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.barTintColor = UIColor(red: 215/255.0, green: 0.0, blue: 0.0, alpha: 1.0)
@@ -58,10 +55,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
          }
          }
          */
-    }
-    
-    func filterButtonTapped() {
-        print("filter tapped")
     }
     
     override func viewWillLayoutSubviews() {
