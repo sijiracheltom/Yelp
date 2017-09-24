@@ -8,11 +8,14 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
+    var searchBar: UISearchBar!
+    var filterButton : UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +25,16 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        navigationItem.titleView = searchBar
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Filter", style: UIBarButtonItemStyle.plain, target: self, action: #selector(BusinessesViewController.filterButtonTapped))
+        navigationController?.navigationBar.barStyle = UIBarStyle.blackOpaque
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.barTintColor = UIColor(red: 215/255.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        
+        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in            
             self.businesses = businesses
             self.tableView.reloadData()
             
@@ -47,7 +58,14 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
          }
          }
          */
-        
+    }
+    
+    func filterButtonTapped() {
+        print("filter tapped")
+    }
+    
+    override func viewWillLayoutSubviews() {
+        searchBar.sizeToFit()
     }
     
     // MARK: - TableView methods
@@ -68,6 +86,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
+    // MARK: - Search bar delegate
     
     /*
      // MARK: - Navigation
