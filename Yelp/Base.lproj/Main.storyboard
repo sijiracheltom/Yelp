@@ -163,8 +163,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSb-79-h87">
-                                                    <rect key="frame" x="15" y="13.5" width="42" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="15" y="14" width="43" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -178,6 +178,7 @@
                                                 <constraint firstItem="FSb-79-h87" firstAttribute="leading" secondItem="QTa-SE-gHl" secondAttribute="leading" constant="15" id="EMG-gh-1YW"/>
                                                 <constraint firstItem="FSb-79-h87" firstAttribute="centerY" secondItem="QTa-SE-gHl" secondAttribute="centerY" id="JvH-76-Pmx"/>
                                                 <constraint firstItem="27y-oo-8zT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="QTa-SE-gHl" secondAttribute="top" constant="8" id="Sm8-vC-sLH"/>
+                                                <constraint firstItem="27y-oo-8zT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FSb-79-h87" secondAttribute="trailing" constant="8" id="f9b-tV-Wld"/>
                                                 <constraint firstItem="27y-oo-8zT" firstAttribute="centerY" secondItem="QTa-SE-gHl" secondAttribute="centerY" id="ocH-Xm-RTg"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FSb-79-h87" secondAttribute="bottom" constant="8" id="trQ-ZG-gnr"/>
                                                 <constraint firstAttribute="trailing" secondItem="27y-oo-8zT" secondAttribute="trailing" constant="15" id="vKE-Qx-HOc"/>
