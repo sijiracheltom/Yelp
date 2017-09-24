@@ -140,7 +140,7 @@
         <!--Filters-->
         <scene sceneID="iOy-L6-jEb">
             <objects>
-                <viewController id="79f-UA-OUz" sceneMemberID="viewController">
+                <viewController id="79f-UA-OUz" customClass="FiltersViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3ga-hb-aGm"/>
                         <viewControllerLayoutGuide type="bottom" id="YOE-Ic-cI2"/>
@@ -191,12 +191,8 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Filters" id="zaJ-ZV-6yb">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="9Bz-50-QgX">
-                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="o4S-g2-nXR">
-                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="9Bz-50-QgX"/>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="o4S-g2-nXR"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
