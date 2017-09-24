@@ -8,10 +8,11 @@
 
 import UIKit
 
-class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SwitchCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var categories: [[String : String]]!
+    var switchValueArray = [Int : Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +45,17 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchCell
         cell.switchLabel.text = categories[indexPath.row]["name"]
+        cell.delegate = self
+        cell.onSwitch.setOn(switchValueArray[indexPath.row] ?? false, animated: false)
         
         return cell
+    }
+    
+    // MARK : - SwitchCellDelegate methods
+    
+    func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
+        let row = tableView.indexPath(for: switchCell)!.row
+        self.switchValueArray[row] = value
     }
     
     // MARK : - Predefined categories, convenience method
