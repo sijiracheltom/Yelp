@@ -8,11 +8,16 @@
 
 import UIKit
 
+@objc protocol FiltersViewControllerDelegate {
+    @objc optional func filtersViewController(filtersViewController: FiltersViewController, didSearchForFilters  filters:[String : AnyObject])
+}
+
 class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SwitchCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var categories: [[String : String]]!
     var switchValueArray = [Int : Bool]()
+    weak var delegate : FiltersViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +38,21 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func searchButtonTapped(_ sender: Any) {
+        var selectedCategories = [String]()
+        
+        for (row, switchSelectedState) in switchValueArray {
+            if switchSelectedState {
+                selectedCategories.append(categories[row]["code"]!)
+            }
+        }
+        
+        var filters = [String : AnyObject]()
+        
+        if selectedCategories.count > 0 {
+            filters["categories"] = selectedCategories as AnyObject
+            self.delegate?.filtersViewController?(filtersViewController: self, didSearchForFilters: filters)
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     

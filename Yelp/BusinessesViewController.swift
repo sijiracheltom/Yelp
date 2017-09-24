@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, FiltersViewControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -80,5 +80,22 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // MARK: - Search bar delegate
+    
+    // MARK: - Navigation controller setup
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navigationController = segue.destination as! UINavigationController
+        let filtersVC = navigationController.topViewController as! FiltersViewController
+        filtersVC.delegate = self
+    }
+    
+    // MARK: - Filters VC delegare
+    func filtersViewController(filtersViewController: FiltersViewController, didSearchForFilters filters: [String : AnyObject]) {
+        Business.searchWithTerm(term: "", sort: nil, categories: filters["categories"] as? [String], deals: nil)
+        { (businesses: [Business]?, error: Error?) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+        }
+    }
     
 }
