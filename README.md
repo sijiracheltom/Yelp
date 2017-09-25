@@ -35,8 +35,8 @@ Expanded arrow icon from:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Learn appropriate usage of adding/removing rows/sections API in tableviews
+2. Discuss code encapsulation and class architecture
 
 ## Video Walkthrough
 
