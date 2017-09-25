@@ -49,6 +49,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+- I'm not sure why some of the default switches look grayed out and different than the others. You'll see this in the GIF above, notice the last section (restaurant categories) in the Filters view.
 
 ## License
 
