@@ -200,6 +200,30 @@
                                             <outlet property="switchLabel" destination="FSb-79-h87" id="XmF-oR-EDe"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FooterView" id="Bua-5Q-yrf">
+                                        <rect key="frame" x="0.0" y="104" width="375" height="48"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bua-5Q-yrf" id="PzD-oe-b3b">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="47"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="See All" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ScO-PX-M4w">
+                                                    <rect key="frame" x="161" y="13.5" width="54" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ScO-PX-M4w" firstAttribute="centerX" secondItem="PzD-oe-b3b" secondAttribute="centerX" id="5RU-4b-8my"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ScO-PX-M4w" secondAttribute="trailing" constant="8" id="A9o-Ml-46b"/>
+                                                <constraint firstItem="ScO-PX-M4w" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PzD-oe-b3b" secondAttribute="leading" constant="8" id="Yk1-zI-FXi"/>
+                                                <constraint firstItem="ScO-PX-M4w" firstAttribute="top" relation="greaterThanOrEqual" secondItem="PzD-oe-b3b" secondAttribute="top" constant="8" id="Yzf-5n-ZtF"/>
+                                                <constraint firstItem="ScO-PX-M4w" firstAttribute="centerY" secondItem="PzD-oe-b3b" secondAttribute="centerY" id="vA9-Bo-Hrc"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ScO-PX-M4w" secondAttribute="bottom" constant="8" id="xB8-HL-myP"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>

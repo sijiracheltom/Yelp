@@ -20,6 +20,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
     weak var delegate : FiltersViewControllerDelegate?
     var isDistanceSectionExpanded : Bool = false
     var isSortBySectionExpanded : Bool = false
+    var isCategorySectionExpanded : Bool = false
     
     enum TableSection : Int {
         case deals = 0
@@ -42,6 +43,7 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(FooterView.self, forHeaderFooterViewReuseIdentifier: "FooterView")
         
         tableView.backgroundColor = UIColor.white
     }
@@ -143,7 +145,11 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
             case .deals:
                 numRows = 1
             case .category:
-                numRows = self.categories.count
+                if isCategorySectionExpanded {
+                    numRows = self.categories.count
+                } else {
+                    numRows = 3
+                }
             case .distance:
                 if isDistanceSectionExpanded {
                     numRows = YelpDistanceMode.totalCount.rawValue
@@ -247,6 +253,56 @@ class FiltersViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         return title
+    }
+    
+//    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+//        if section == TableSection.category.rawValue {
+//            return "See All"
+//        }
+//        
+//        return nil
+//    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        if section == TableSection.category.rawValue {
+            return 50
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == TableSection.category.rawValue {
+            return 50
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == TableSection.category.rawValue {
+            if isCategorySectionExpanded {
+                return nil
+            }
+            
+            let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "FooterView")
+            footerView?.textLabel?.text = "See All"
+            footerView?.textLabel?.textAlignment = NSTextAlignment.center
+                        
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(footerViewTapped))
+            tapGestureRecognizer.numberOfTapsRequired = 1
+            footerView?.addGestureRecognizer(tapGestureRecognizer)
+            
+            return footerView
+        }
+        
+        return nil
+    }
+    
+    func footerViewTapped() {
+        print("tapped")
+        isCategorySectionExpanded = true
+        tableView.reloadData()
     }
     
     func resetRadioCells(selectedRow : Int, forSection section : Int) -> Void {
